@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практикум: Формы и выравнивание в CSS - Полное руководство для начинающих</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+
+   
+    <h1>HTML формы и CSS выравнивание</h1>
+    <p style="font-size: 18px; color: #2c3e50; margin-bottom: 30px;">
+        Это практическое занятие для тех, кто только начинает свой путь в веб-разработке. 
+        Здесь вы найдёте примеры всех основных элементов форм и 5 способов выравнивания блоков.
+    </p>
+
+    <!-- ================================================================ -->
+    <!-- ФОРМЫ                                                            -->
+    <!-- ================================================================ -->
+    
+    <h1>📋 ЧАСТЬ 1: HTML ФОРМЫ</h1>
+    
+    <!-- 
+        ОСНОВНАЯ ФОРМА С GET-МЕТОДОМ
+        Атрибуты формы:
+        - action: указывает, куда отправлять данные (например: "index-2.html" или "#")
+        - method: способ отправки данных (GET - данные в адресной строке, POST - в теле запроса)
+    -->
+    <form action="index-2.html" method="GET" class="demo-form">
+        <h2>🎯 Основные элементы формы (method="GET")</h2>
+        
+        <!-- 
+            ТЕКСТОВОЕ ПОЛЕ (type="text")
+            Атрибуты:
+            - type="text" - обычный текст
+            - name - имя поля для отправки на сервер
+            - id - уникальный идентификатор (связывается с label)
+            - placeholder - подсказка внутри поля
+            - value - значение по умолчанию
+            - maxlength - максимальная длина ввода
+            - required - обязательное поле
+        -->
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" 
+               placeholder="Введите ваше имя" 
+               maxlength="20" 
+               required>
+        <span style="font-size: 12px; color: #666;">(maxlength=20, required)</span>
+        <br><br>
+
+        <!-- 
+            ПОЛЕ EMAIL (type="email")
+            Автоматически проверяет, похож ли ввод на email 
+            (можно сказать что частично валидирует то что ввёл пользователь
+            попробуйте ввести данные без символа "@")
+        -->
+        <label for="userEmail">Электронная почта:</label>
+        <input type="email" id="userEmail" name="email" 
+               placeholder="example@mail.com" 
+               required>
+        <br><br>
+
+        <!-- 
+            ПОЛЕ ПАРОЛЯ (type="password")
+            Символы скрываются точками или звёздочками
+        -->
+        <label for="userPwd">Пароль:</label>
+        <input type="password" id="userPwd" name="password" 
+               placeholder="Введите пароль" 
+               required>
+        <br><br>
+
+        <!-- 
+            ПОЛЕ ТЕЛЕФОНА (type="tel")
+            Не имеет автоматической валидации, 
+            но на мобильных устройствах показывает клавиатуру с цифрами
+        -->
+        <label for="userTel">Номер телефона:</label>
+        <input type="tel" id="userTel" name="phone" 
+               placeholder="+7 (123) 456-78-90">
+        <br><br>
+
+        <!-- 
+            ПОЛЕ ДАТЫ (type="date")
+            Отображает удобный календарь для выбора даты
+        -->
+        <label for="birthDate">Дата рождения:</label>
+        <input type="date" id="birthDate" name="birthday">
+        <br><br>
+
+        <!-- 
+            ПОЛЕ-ПОЛЗУНОК (type="range")
+            Позволяет выбрать значение из диапазона
+            min - минимальное значение
+            max - максимальное значение
+            step - шаг изменения, т.е. на сколько ползунок двигается за раз
+            value - значение по умолчанию
+        -->
+        <label for="rating">Оценка навыков (0-10):</label>
+        <input type="range" id="rating" name="skillLevel" 
+               min="0" max="10" step="1" value="5">
+        <span style="margin-left: 10px;">начальное значение: 5</span>
+        <br><br>
+
+        <!-- 
+            ЧЕКБОКСЫ (type="checkbox")
+            Позволяют выбрать несколько вариантов
+            value - значение, которое отправится на сервер при выборе
+            disabled - блокирует элемент (неактивен)
+        -->
+        <label>Ваши интересы:</label>
+        <br>
+        <input type="checkbox" id="interest1" name="interests" value="coding">
+        <label for="interest1">Программирование</label>
+        <br>
+        <input type="checkbox" id="interest2" name="interests" value="design">
+        <label for="interest2">Веб-дизайн</label>
+        <br>
+        <input type="checkbox" id="interest3" name="interests" value="music" disabled>
+        <label for="interest3" style="color: gray;">Майнкрафт (отключено - disabled)</label>
+        <br><br>
+
+        <!-- 
+            РАДИО-КНОПКИ (type="radio")
+            Позволяют выбрать ТОЛЬКО ОДИН вариант из группы
+            Все radio с одинаковым name образуют группу
+            Если у radio отсутствует или отличается name, то они не будут "мешать" выбору нескольких вариантов
+        -->
+        <label>Ваш пол:</label>
+        <br>
+        <input type="radio" id="genderMale" name="gender" value="male">
+        <label for="genderMale">Мужской</label>
+        <br>
+        <input type="radio" id="genderFemale" name="gender" value="female">
+        <label for="genderFemale">Женский</label>
+        <br>
+        <input type="radio" id="genderOther" name="gender" value="other">
+        <label for="genderOther">Боевой вертолёт</label>
+        <br><br>
+
+        <!-- 
+            ПОЛЕ ДЛЯ ЗАГРУЗКИ ФАЙЛОВ (type="file")
+            Позволяет пользователю выбрать файл с компьютера
+            accept - ограничивает типы файлов
+        -->
+        <label for="avatar">Загрузить аватар:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*">
+        <br><br>
+
+        <!-- 
+            ОТКЛЮЧЁННОЕ ПОЛЕ (disabled)
+            Показывает, как выглядит недоступное для ввода поле
+        -->
+        <label for="disabledField">Недоступное поле:</label>
+        <input type="text" id="disabledField" value="Это поле отключено (disabled)" disabled>
+        <br><br>
+
+        <!-- 
+            КНОПКИ УПРАВЛЕНИЯ ФОРМОЙ
+            type="submit" - отправляет форму
+            type="reset" - сбрасывает все поля к начальному состоянию
+            type="button" - обычная кнопка (нужен JavaScript для действий)
+        -->
+        <input type="submit" value="📤 Отправить форму (GET)">
+        <input type="reset" value="🗑️ Сбросить форму">
+        <input type="button" value="ℹ️ Обычная кнопка">
+        
+        <!-- 
+            ПОЯСНЕНИЕ О РАБОТЕ LABEL И P
+        -->
+        <div class="note">
+            <h3>📖 Важное пояснение: &lt;label&gt; vs &lt;p&gt;</h3>
+            <p><strong>&lt;label&gt;</strong> - это специальный элемент, который связывается с полем ввода через атрибуты <strong>for</strong> и <strong>id</strong>. Когда пользователь кликает на текст label, фокус автоматически переходит на связанное поле. Это улучшает удобство использования форм.</p>
+            <p><strong>&lt;p&gt;</strong> - это обычный абзац текста. Он не имеет связи с полями ввода и не реагирует на клики. Используйте label для подписей к полям форм!</p>
+            <p><strong>Пример связки:</strong> <code>&lt;label for="username"&gt;Имя:&lt;/label&gt; &lt;input id="username"&gt;</code></p>
+        </div>
+    </form>
+
+    <!-- 
+        ВТОРАЯ ФОРМА - ДЕМОНСТРАЦИЯ METHOD="POST"
+        Отличие от GET: данные не отображаются в адресной строке
+    -->
+    <form action="index-2.html" method="POST" class="demo-form">
+        <h2>🎯 Пример формы с method="POST"</h2>
+        <label for="postMessage">Сообщение (отправляется POST-запросом):</label>
+        <input type="text" id="postMessage" name="message" 
+               placeholder="Данные не будут видны в URL">
+        <input type="submit" value="Отправить POST">
+        <div class="note" style="margin-top: 15px;">
+            <strong>🔍 Разница между GET и POST:</strong><br>
+            • <strong>GET</strong> - данные добавляются в адресную строку (видно все параметры). Подходит для поиска, фильтров.<br>
+            • <strong>POST</strong> - данные отправляются скрыто в теле запроса. Используйте для паролей, файлов, личной информации.
+        </div>
+    </form>
+
+    <!-- ================================================================ -->
+    <!-- РАЗДЕЛ 2: ВЫРАВНИВАНИЕ В CSS - 5 СПОСОБОВ                      -->
+    <!-- ================================================================ -->
+    
+    <h1>📐 ЧАСТЬ 2: ВЫРАВНИВАНИЕ ЭЛЕМЕНТОВ В CSS</h1>
+    <p style="margin-bottom: 20px;">Ниже показаны 5 основных способов центрирования блоков. Каждый способ имеет свои особенности и применяется в разных ситуациях.</p>
+
+    <!-- 
+        СПОСОБ 1: TEXT-ALIGN: CENTER
+    -->
+    <div class="align-section">
+        <h2>1️⃣ Способ: text-align: center</h2>
+        <div class="parent text-align-parent">
+            <div class="child inline-block-child">
+                📌 Я выровнен с помощью text-align: center<br>
+                (display: inline-block)
+            </div>
+        </div>
+        <div class="comment">
+            <strong>⚙️ Как это работает:</strong><br>
+            • Родителю задаётся <code>text-align: center</code><br>
+            • Дочерний элемент должен иметь <code>display: inline-block</code> или <code>display: inline</code><br>
+            • <strong>Почему так:</strong> text-align управляет выравниванием только строчных и строчно-блочных элементов. Обычные блочные элементы (div с display: block) занимают всю ширину, поэтому центрирование не сработает.<br>
+            • <strong>Когда использовать:</strong> для центрирования текста, иконок, небольших блоков внутри текста.
+        </div>
+    </div>
+
+    <!-- 
+        СПОСОБ 2: MARGIN: AUTO
+    -->
+    <div class="align-section">
+        <h2>2️⃣ Способ: margin: auto</h2>
+        <div class="parent margin-auto-parent">
+            <div class="child margin-auto-child">
+                📌 Я выровнен с помощью margin: 0 auto<br>
+                (ширина задана: 300px)
+            </div>
+        </div>
+        <div class="comment">
+            <strong>⚙️ Как это работает:</strong><br>
+            • Блоку задаётся фиксированная <code>width</code> (ширина)<br>
+            • Применяется <code>margin-left: auto</code> и <code>margin-right: auto</code> (или <code>margin: 0 auto</code>)<br>
+            • Браузер автоматически вычисляет равные отступы слева и справа, центрируя блок<br>
+            • <strong>Важное условие:</strong> ширина блока должна быть меньше ширины родителя!<br>
+            • <strong>Уточнение:</strong> По спецификации CSS, margin: auto по вертикали всегда вычисляется как 0, 
+            потому что браузер не может предсказать высоту динамического контента.<br> 
+            • <strong>Как исправить?</strong> Используйте Flexbox<br>
+            • <strong>Когда использовать:</strong> для центрирования блочных элементов (картинок, карточек, меню) с известной шириной.
+
+        </div>
+    </div>
+
+    <!-- 
+        СПОСОБ 3: ABSOLUTE + RELATIVE (ПОЗИЦИОНИРОВАНИЕ)
+    -->
+    <div class="align-section">
+        <h2>3️⃣ Способ: absolute + relative + transform</h2>
+        <div class="parent relative-parent">
+            <div class="child absolute-child">
+                📌 Я выровнен с помощью position: absolute<br>
+                left: 50%; top: 50% + transform: translate(-50%, -50%)
+            </div>
+        </div>
+        <div class="comment">
+            <strong>⚙️ Как это работает:</strong><br>
+            • Родителю задаётся <code>position: relative</code> (создаётся точка отсчёта)<br>
+            • Дочернему блоку задаётся <code>position: absolute</code> (элемент выпадает из обычного потока)<br>
+            • <code>left: 50%</code> - смещает левый край дочернего элемента на 50% от ширины родителя<br>
+            • <code>transform: translate(-50%, -50%)</code> - сдвигает элемент на половину его собственной ширины и высоты<br>
+            • <strong>Результат:</strong> элемент оказывается точно по центру родителя и по горизонтали, и по вертикали<br>
+            • <strong>Когда использовать:</strong> для модальных окон, всплывающих подсказок, элементов поверх другого контента.
+        </div>
+    </div>
+
+    <!-- 
+        СПОСОБ 4: FLEXBOX
+    -->
+    <div class="align-section">
+        <h2>4️⃣ Способ: Flexbox (рекомендуемый для начинающих)</h2>
+        <div class="parent flex-parent">
+            <div class="child flex-child">
+                📌 Я выровнен с помощью Flexbox!<br>
+                display: flex; justify-content: center; align-items: center;
+            </div>
+        </div>
+        <div class="comment">
+            <strong>⚙️ Как это работает:</strong><br>
+            • Родителю задаётся <code>display: flex</code> (включается flex-режим)<br>
+            • <code>justify-content: center</code> - центрирует по главной оси (обычно по горизонтали)<br>
+            • <code>align-items: center</code> - центрирует по поперечной оси (обычно по вертикали)<br>
+            • <strong>важное "НО"! :</strong> когда мы меняем направление flex контейнера через свойство
+            <br><code>flex-direction: (column/row/row-reverce/column-reverce)</code>направление этих осей так же меняется<br>
+            попробуйте поэкспериментировать с этим,
+            <a href = "https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/" target="_blank">
+              на этом сайте есть интерактивные примеры</a><br>
+            • <strong>Преимущества:</strong> не нужно знать размеры элементов, работает идеально во всех браузерах, просто в понимании<br>
+            • <strong>Когда использовать:</strong> это самый универсальный и современный способ! Используйте его для большинства задач центрирования.
+        </div>
+    </div>
+
+    <!-- 
+        СПОСОБ 5: GRID
+    -->
+    <div class="align-section">
+        <h2>5️⃣ Способ: CSS Grid Layout</h2>
+        <div class="parent grid-parent">
+            <div class="child grid-child">
+                📌 Я выровнен с помощью Grid!<br>
+                justify-self: center; align-self: center;
+            </div>
+        </div>
+        <div class="comment">
+            <strong>⚙️ Как это работает:</strong><br>
+            • Родителю задаётся <code>display: grid</code> (включается сетка)<br>
+            • <code>grid-template-columns: 1fr</code> - создаётся одна колонка<br>
+            • Дочернему элементу задаётся <code>justify-self: center</code> - центрирование по горизонтали внутри ячейки<br>
+            • <code>align-self: center</code> - центрирование по вертикали внутри ячейки<br>
+            • Можно использовать сокращение: <code>place-self: center</code><br>
+            • <strong>Когда использовать:</strong> для сложных сеток и когда нужно разное выравнивание для разных элементов внутри одной сетки.
+        </div>
+    </div>
+
+    <!-- 
+        ДОПОЛНИТЕЛЬНЫЙ ПРИМЕР: GRID С РАЗНЫМ ВЫРАВНИВАНИЕМ
+    -->
+    <div class="align-section">
+        <h2>🎨 Дополнительный пример: разные варианты выравнивания в Grid</h2>
+        <div class="grid-demo-extra">
+            <div class="grid-container">
+                <div class="grid-item item-a">
+                    <strong>Элемент A</strong><br>
+                    justify-self: center<br>
+                    align-self: center
+                </div>
+                <div class="grid-item item-b">
+                    <strong>Элемент B</strong><br>
+                    justify-self: start<br>
+                    align-self: start
+                </div>
+                <div class="grid-item item-c">
+                    <strong>Элемент C</strong><br>
+                    justify-self: end<br>
+                    align-self: end
+                </div>
+            </div>
+            <div class="comment" style="margin-top: 15px;">
+                <strong>📌 Пояснение:</strong> В этом примере показано, как каждый элемент может иметь своё собственное выравнивание внутри сетки. <code>justify-self</code> управляет горизонтальным положением, <code>align-self</code> - вертикальным. Это очень удобно, когда элементы в одной сетке должны быть расположены по-разному.
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        ИТОГОВАЯ ТАБЛИЦА ДЛЯ ЗАПОМИНАНИЯ
+    -->
+    <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 30px;">
+        <h2>📝 Шпаргалка: когда какой способ использовать?</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #3498db; color: white;">
+                <tr><th style="padding: 10px; text-align: left;">Способ</th>
+                    <th style="padding: 10px; text-align: left;">Когда использовать</th>
+                    <th style="padding: 10px; text-align: left;">Сложность</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;"><strong>text-align: center</strong></td>
+                    <td style="padding: 10px;">Текст, иконки, маленькие кнопки</td>
+                    <td style="padding: 10px;">⭐ (очень просто)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;"><strong>margin: auto</strong></td>
+                    <td style="padding: 10px;">Блоки с известной шириной</td>
+                    <td style="padding: 10px;">⭐⭐ (просто)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;"><strong>absolute + relative</strong></td>
+                    <td style="padding: 10px;">Всплывающие окна, элементы поверх контента</td>
+                    <td style="padding: 10px;">⭐⭐⭐ (средне)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;"><strong>Flexbox</strong></td>
+                    <td style="padding: 10px;">⭐ УНИВЕРСАЛЬНЫЙ СПОСОБ ⭐ - используйте чаще всего!</td>
+                    <td style="padding: 10px;">⭐⭐ (просто, очень удобно)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><strong>Grid</strong></td>
+                    <td style="padding: 10px;">Сложные сетки, разное выравнивание элементов</td>
+                    <td style="padding: 10px;">⭐⭐⭐ (средне, но мощно)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 
+        ПОДВАЛ С ВАЖНЫМИ ЗАМЕЧАНИЯМИ
+    -->
+    <footer class="info-footer">
+        <h3 style="margin-top: 0;">Всякая важная инфа вкратце</h3>
+        <ul style="text-align: left; max-width: 800px; margin: 0 auto;">
+            <li>Все основные типы полей ввода: text, password, email, tel, date, range, checkbox, radio, file</li>
+            <li>Атрибуты форм: action, method (GET и POST), name, value, placeholder, required, disabled, maxlength</li>
+            <li>Как работает связка label и id (и чем label отличается от обычного p)</li>
+            <li>5 способов центрирования блоков в CSS с подробными объяснениями</li>
+            <li>Практические примеры каждого способа выравнивания</li>
+        </ul>
+        <p style="margin-top: 20px;"><strong>Совет:</strong> Откройте инструменты разработчика (F12) и посмотрите, как применяются CSS-свойства к каждому элементу. Экспериментируйте, меняйте значения и наблюдайте за изменениями</p>
+    </footer>
+
+</body>
+</html>
